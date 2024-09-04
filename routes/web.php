@@ -1,6 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Controllers\Admin\AuthController;
+use App\Controllers\Admin\DashboardController;
+use App\Controllers\Admin\CommentController;
+use App\Controllers\Admin\PostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,4 +19,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('/admin/dashboard', 'DashboardController@dashboard');
 });
