@@ -10,11 +10,13 @@ class LandingController extends Controller
 {
     public function index(Request $request)
     {
-        $posts = Post::all();
+        $posts_left = Pst::inRandomOrder()->limit(5)->get();
+        $posts_right = Pst::inRandomOrder()->limit(5)->get();
         return view(
             'home',
             [
-                'list' => $posts,
+                'posts_left' => $posts_left,
+                'posts_right' => $posts_right,
             ]
         );
     }
