@@ -8,7 +8,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use App\Models\Role;
 
-class AdminUserSeeder extends Seeder
+class UserSeed extends Seeder
 {
     /**
      * Run the database seeds.
@@ -18,19 +18,17 @@ class AdminUserSeeder extends Seeder
     public function run()
     {
         $user = User::create([
-            'name' => 'Administrator',
-            'email' => 'admin@blog.com',
+            'name' => 'usertest',
+            'email' => 'usertest@blog.com',
             'password' => "1234567890",
             'email_verified_at' => now(),
-//            'role_id' => 1, // Administrator
         ]);
 
-        $role = Role::where('name','admin')->first();
+        $role = Role::where('name','user')->first();
 
         DB::table('users_roles')->insert([
             'user_id' => $user->id,
             'role_id' => $role->id,
         ]);
-
     }
 }
