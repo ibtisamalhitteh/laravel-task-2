@@ -12,7 +12,7 @@ class Post extends Model
     use HasFactory , SoftDeletes;
 
     public $softDeleting = true;
-    protected $table = "comments";
+    protected $table = "posts";
     protected $fillable = [
         "title",
         "content" ,
