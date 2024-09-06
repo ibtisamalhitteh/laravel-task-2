@@ -14,7 +14,7 @@
       </div>
       <div class="login-form">
         <h1>Admin Login</h1>
-        <form action="/loginprocess" method="POST" id="adminlogin_form" ">
+        <form action="/loginadmin" method="POST" id="adminlogin_form" ">
            @csrf
           <div class="form-group">
             <label for="email">Email:</label>

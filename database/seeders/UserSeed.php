@@ -7,6 +7,7 @@ use Illuminate\Database\Seeder;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use App\Models\Role;
+use Illuminate\Support\Facades\Hash;
 
 class UserSeed extends Seeder
 {
@@ -20,7 +21,7 @@ class UserSeed extends Seeder
         $user = User::create([
             'name' => 'usertest',
             'email' => 'usertest@blog.com',
-            'password' => "1234567890",
+            'password' => Hash::make("1234567890"),
             'email_verified_at' => now(),
         ]);
 

@@ -10,6 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Comment;
 use App\Models\Role;
+use Illuminate\Support\Facades\Hash;
 
 class User extends Authenticatable
 {
@@ -53,5 +54,12 @@ class User extends Authenticatable
     public function role()
     {
         return $this->belongsToMany(Role::class,'users_roles');
+    }
+
+    protected function password(): Attribute
+    {
+        return new Attribute(
+            set: fn ($password) => Hash::make($password),
+        );
     }
 }

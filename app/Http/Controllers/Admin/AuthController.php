@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 //use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\User\AuthRequest;
 
 class AuthController extends Controller
 {
@@ -40,8 +40,8 @@ class AuthController extends Controller
                 'message' => 'user login success',
                 'alert-type' => 'success'
             );
-
-            return redirect()->back()->with($notification);
+            return redirect()->route('administrator.dashboard');
+           // return redirect()->back()->with($notification);
         }else{
             $notification = array(
                 'message' => 'user credentials error',
@@ -53,11 +53,13 @@ class AuthController extends Controller
 
     }
 
-    public function dashboard(Request $request)
-    {
-    }
 
     public function logout(AuthRequest $request)
     {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return view('admin.auth.login');
     }
 }

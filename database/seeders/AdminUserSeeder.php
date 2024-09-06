@@ -7,7 +7,7 @@ use Illuminate\Database\Seeder;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use App\Models\Role;
-
+use Illuminate\Support\Facades\Hash;
 class AdminUserSeeder extends Seeder
 {
     /**
@@ -20,7 +20,7 @@ class AdminUserSeeder extends Seeder
         $user = User::create([
             'name' => 'Administrator',
             'email' => 'admin@blog.com',
-            'password' => "1234567890",
+            'password' => Hash::make("1234567890"),
             'email_verified_at' => now(),
 //            'role_id' => 1, // Administrator
         ]);

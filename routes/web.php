@@ -42,7 +42,7 @@ Route::post('/loginprocess', [UserController::class, 'login'])->name('login');
 // Handle logout
 Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 Route::get('/administrator', [AuthController::class, 'loginScreen'])->name('admin.login.form');
-
+Route::post('/loginadmin', [AuthController::class, 'login'])->name('administrator.login');
 Route::prefix('administrator')->middleware(['auth', 'role:admin'])->name('administrator.')->group(function () {
     Route::controller(PostController::class)->name('posts.')->group(function () {
         Route::get('/posts', 'index')->name('list');
@@ -52,6 +52,10 @@ Route::prefix('administrator')->middleware(['auth', 'role:admin'])->name('admini
         Route::put('/posts/update/{id}', 'update')->name('update');
         Route::get('/posts/create', 'create')->name('create');
         Route::post('/posts/store', 'store')->name('store');
+    });
+
+    Route::controller(AuthController::class)->name('administrator.')->group(function () {
+        Route::get('/dashboard', 'index')->name('dashboard');
     });
 });
 
