@@ -39,7 +39,7 @@ class PostController extends Controller
         $notification = array(
              'message' => 'post created successful!',
                 'alert-type' => 'success'
-        )
+        );
 
         return redirect()->back()->with($notification);
 
@@ -77,7 +77,7 @@ class PostController extends Controller
         $notification = array(
              'message' => 'post updated successful!',
                 'alert-type' => 'success'
-        )
+        );
 
         return redirect()->back()->with($notification);
 
@@ -89,7 +89,7 @@ class PostController extends Controller
         $notification = array(
              'message' => 'post deleted successful!',
                 'alert-type' => 'success'
-        )
+        );
 
         return redirect()->back()->with($notification);
     }
