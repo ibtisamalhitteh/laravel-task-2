@@ -4,14 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Comment;
+use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
 
     // this is function add comment to post by login user
-    public function add(Request $request)
+    public function add(Request $request,$post_id)
     {
        $input = $request->only('content');
+        $input['user_id'] = Auth::user()->id;
+        $input['post_id'] =  $post_id;
        $comment = Comment::create($input);
 
         $notification = array(

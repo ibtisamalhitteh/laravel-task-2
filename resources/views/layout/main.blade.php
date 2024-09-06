@@ -44,6 +44,7 @@
 </div>
     <script src="{{ asset('landing/js/jquery.js') }}"></script>
     <script src="{{ asset('landing/js/jquery-validate.min.js') }}"></script>
+    <script src="{!! asset('landing/js/intlTellnput/utils.js') !!}" crossorigin="anonymous"></script>
  	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>   
 </footer>
 

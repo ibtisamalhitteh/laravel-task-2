@@ -24,15 +24,15 @@
         <h4>Comments</h4>
         <ul>
             @foreach($post->comment as $comment)
-            <li>{{$comment->content}}</li>
+            <li>{{$comment->content}}
+                <small><i>created by {{$comment->user->name}}</i></small></li>
             @endforeach
         </ul>
      @if(Auth::user())   
      @if(Auth::user()->hasRole('user'))   
-    <form id="edit-categories" action="/administrator/posts/update/{{$post->id}}" enctype='multipart/form-data' class="px-4 pt-3" method="POST">
+    <form id="edit-categories" action="/comment/add/{{$post->id}}" enctype='multipart/form-data' class="px-4 pt-3" method="POST">
                     @csrf
 
-        <h6>Add Comment </h6>
         <div class="row">
             <div class="col-sm-6 input-wrapper ">
                   <label class="form-label" for="name_en">Your Comment</label>

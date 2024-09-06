@@ -66,6 +66,6 @@ Route::middleware(['auth', 'role:user'])->name('user.')->group(function () {
     Route::controller(CommentController::class)->name('comments.')->group(function () {
         Route::get('/comment/delete/{id}', 'delete')->name('delete');
         Route::put('/comment/update/{id}', 'update')->name('update');
-        Route::post('/comment/add', 'add')->name('add');
+        Route::post('/comment/add/{post_id}', 'add')->name('add');
     });
 });
