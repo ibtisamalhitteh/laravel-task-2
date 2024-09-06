@@ -51,7 +51,7 @@ Route::prefix('administrator')->middleware(['auth', 'role'])->name('administrato
         Route::get('/posts/view/{id}', 'show')->name('show');
         Route::get('/posts/edit/{id}', 'edit')->name('edit');
         Route::get('/posts/delete/{id}', 'delete')->name('delete');
-        Route::put('/posts/update/{id}', 'update')->name('update');
+        Route::post('/posts/update/{id}', 'update')->name('update');
         Route::get('/posts/create', 'create')->name('create');
         Route::post('/posts/store', 'store')->name('store');
     });

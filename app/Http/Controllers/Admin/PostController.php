@@ -22,12 +22,8 @@ class PostController extends Controller
 
     public function create(Request $request)
     {
-        $data = null;
         return view(
-            'admin.posts.create',
-            [
-                'data' => $data
-            ]
+            'admin.posts.add-new'
         );
     }
 
@@ -36,30 +32,23 @@ class PostController extends Controller
        $input = $request->only('title','content','status','thumb');
        $post = Post::create($input);
 
-        $notification = array(
-             'message' => 'post created successful!',
-                'alert-type' => 'success'
-        );
-
-        return redirect()->back()->with($notification);
+        return redirect()->route('administrator.posts.list');
 
     }
 
     public function show($id)
     {
-        $data = null;
         $post = Post::where('id',$id)->first();
         return view(
             'admin.posts.view',
             [
-                'data' => $post
+                'post' => $post
             ]
         );
     }
 
     public function edit(Request $request, $id)
     {
-        $data = null;
         $post = Post::where('id',$id)->first();
         return view(
             'admin.posts.edit',
@@ -91,6 +80,6 @@ class PostController extends Controller
                 'alert-type' => 'success'
         );
 
-        return redirect()->back()->with($notification);
+       return redirect()->route('administrator.posts.list')->with($notification);
     }
 }
