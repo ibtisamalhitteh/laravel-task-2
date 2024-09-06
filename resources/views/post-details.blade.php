@@ -25,7 +25,14 @@
         <ul>
             @foreach($post->comment as $comment)
             <li>{{$comment->content}}
-                <small><i>created by {{$comment->user->name}}</i></small></li>
+                <small><i>created by {{$comment->user->name}}</i></small>
+
+                @if(Auth::user())  
+                @if($comment->user->id == Auth::user()->id)
+                <small><a href="/comment/delete/{{$comment->id}}" style="color:red">Remove</a><small>
+                @endif
+                @endif
+            </li>
             @endforeach
         </ul>
      @if(Auth::user())   
