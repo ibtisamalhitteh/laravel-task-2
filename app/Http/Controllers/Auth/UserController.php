@@ -23,13 +23,7 @@ class UserController extends Controller
     {
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials)) {
-
-            $notification = array(
-                'message' => 'user login success',
-                'alert-type' => 'success'
-            );
-
-            return redirect()->back()->with($notification);
+            return redirect()->route('landing.page');
         }else{
             $notification = array(
                 'message' => 'user credentials error',

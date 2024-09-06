@@ -19,9 +19,19 @@
 <body>
     <div class="css-df21v2">
     	<div class="container">
-    	<div class="css-1dvdjlz">
+            <div class="row col-md-12">
+    	<div class="css-1dvdjlz col-md-9">
         <a class="css-h4y9tx" href="/">Home</a><a href="/login" class="css-h4y9tx">Login</a>
     </div>
+
+    <div class="col-md-3" style="color:#fff;display: flex;
+    align-items: center;">
+        @if(Auth::user())
+            wellcome, {{Auth::user()->email}}
+        @endif
+
+    </div>
+</div>
 </div>
     </div>
     @yield('content')

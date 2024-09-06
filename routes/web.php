@@ -33,7 +33,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 // Show home page "list of post"
 Route::get('/', [LandingController::class, 'index'])->name('landing.page');
 // view post details with comments
-Route::get('/view/{id}', [LandingController::class, 'view'])->name('post.view.page');
+Route::get('/post/view/{id}', [LandingController::class, 'view'])->name('post.view.page');
 
 // Show login form
 Route::get('/login', [UserController::class, 'showLoginForm'])->name('login.form');
