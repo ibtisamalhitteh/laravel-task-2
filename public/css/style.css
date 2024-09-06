@@ -2,6 +2,9 @@ html{
 	background-color: #252c63;
 }
 
+body{
+    position: relative;
+}
 #login_page{
 	background-color: #252c63;
     padding: 60px 0 90px;
@@ -145,14 +148,23 @@ input:-internal-autofill-selected {
     color: #f4faff;
     font-size: 15px;
     margin-bottom: 0;
-    margin-top: 20px;
 }
 
+
+section{
+padding-bottom: 30px;
+padding-top: 30px;
+}
+.css-5hkbtq{
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
 footer{
-    height: 100px;
-    position: absolute;
+    height: 80px;
+    position: fixed;
     width: 100%;
     bottom: 0px;
+    background: #ff7d6b;
 }
 
 
