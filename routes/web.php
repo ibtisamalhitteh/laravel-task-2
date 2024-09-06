@@ -43,7 +43,9 @@ Route::post('/loginprocess', [UserController::class, 'login'])->name('login');
 Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 Route::get('/administrator', [AuthController::class, 'loginScreen'])->name('admin.login.form');
 Route::post('/loginadmin', [AuthController::class, 'login'])->name('administrator.login');
-Route::prefix('administrator')->middleware(['auth', 'role:admin'])->name('administrator.')->group(function () {
+Route::post('/logoutadmin', [AuthController::class, 'logout'])->name('administrator.logout');
+
+Route::prefix('administrator')->middleware(['auth', 'role'])->name('administrator.')->group(function () {
     Route::controller(PostController::class)->name('posts.')->group(function () {
         Route::get('/posts', 'index')->name('list');
         Route::get('/posts/view/{id}', 'show')->name('show');
@@ -54,8 +56,9 @@ Route::prefix('administrator')->middleware(['auth', 'role:admin'])->name('admini
         Route::post('/posts/store', 'store')->name('store');
     });
 
-    Route::controller(AuthController::class)->name('administrator.')->group(function () {
+    Route::controller(AuthController::class)->group(function () {
         Route::get('/dashboard', 'index')->name('dashboard');
+        
     });
 });
 

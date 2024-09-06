@@ -47,6 +47,6 @@ class UserController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return $this->loggedOut($request) ?: redirect('/');
+        return redirect()->route('landing.page');
     }
 }

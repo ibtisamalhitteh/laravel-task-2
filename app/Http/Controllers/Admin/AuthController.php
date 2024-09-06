@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 //use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\User\AuthRequest;
+use App\Models\Role;
 
 class AuthController extends Controller
 {
@@ -18,7 +19,7 @@ class AuthController extends Controller
             return view(
                 'admin.auth.dashboard',
                 [
-                    'admin' => Auth::guard('admin')->user()->type,
+                    'admin' => Auth::user(),
                     'data' => $data
                 ]
             );
@@ -54,12 +55,12 @@ class AuthController extends Controller
     }
 
 
-    public function logout(AuthRequest $request)
+    public function logout(Request $request)
     {
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return view('admin.auth.login');
+        return redirect()->route('administrator.dashboard');
     }
 }

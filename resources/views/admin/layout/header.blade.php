@@ -123,12 +123,11 @@
           <a class="dropdown-item mt-2"> Manage Accounts </a>
           <a class="dropdown-item"> Change Password </a>
           <a class="dropdown-item"> Check Inbox </a> --}}
-{{--          <a class="dropdown-item" href="{{route("logout")}}"> Sign Out </a>--}}
-            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+            <form id="logout-form" action="{{ route('administrator.logout') }}" method="POST" style="display: none;">
                 @csrf
             </form>
 
-            <a class="dropdown-item" href="{{ route('logout') }}"
+            <a class="dropdown-item" href="{{ route('administrator.logout') }}"
                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                 Sign Out
             </a>
