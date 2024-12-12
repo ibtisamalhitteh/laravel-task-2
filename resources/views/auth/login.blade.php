@@ -17,6 +17,12 @@
                 </ul>
             </div>
             @endif
+
+
+            @if(Session::has('message'))
+                <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
+                @endif
+
         </div>
 
             <form id="form-login" class="form-login" action="{{ route('user.login.form.submit') }}"  method="POST">

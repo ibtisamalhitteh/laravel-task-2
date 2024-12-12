@@ -36,8 +36,6 @@ Route::prefix('administrator')->name('administrator.')->group(function () {
 });
 
 Route::prefix('administrator')->middleware('admin')->name('administrator.')->group(function () {
-
-
     Route::controller(AdminController::class)->group(function () {
         Route::get('/dashboard', 'index')->name('dashboard');
         Route::get('/logout','logout')->name('logout');
@@ -50,8 +48,6 @@ Route::prefix('administrator')->middleware('admin')->name('administrator.')->gro
     Route::prefix('subjects')->controller(SubjectController::class)->name('subjects.')->group(function () {
         Route::get('/list', 'index')->name('list');
     });
-
-
 });
 
 
@@ -61,4 +57,6 @@ Route::prefix('student')->name('student.')->group(function () {
     Route::controller(StudentDashboardController::class)->name('studentdashboard.')->group(function () {
         Route::get('/profile','index')->name('profile');
     }); 
+
+    Route::post('/logout',[AuthController::class,'logout'])->name('general.logout');
 });

@@ -28,15 +28,30 @@
         </div>
         @endif
 
-        <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
             
-            <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
+            <div class="mx-auto sm:px-6 lg:px-8" style="background: #80808038; padding:10px">
             <a href="{{ url('/home') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Home</a>
+            @if( !Auth::guard('web')->user())
             <a href="/user/login" class="text-sm text-gray-700 dark:text-gray-500 underline">Login</a>
             <a href="/signup" class="text-sm text-gray-700 dark:text-gray-500 underline">Signup</a>
-
-            
+            @else
+            <a href="/student/logout" class="text-sm text-gray-700 dark:text-gray-500 underline">Logout</a>
+            @endif
             </div>
-        </div>
+            
+            <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
+                @if( Auth::guard('web')->user())
+                 @if( Auth::guard('web')->user()->is_active == 0)
+                     <div class="alert alert-success">
+                        Sorry, you need active you account by admin please wait until admin active it.
+                        <br/>
+                        Thank you
+                     </div>
+                 @else
+                 @endif
+                @endif
+            </div>
+
+           
     </body>
 </html>

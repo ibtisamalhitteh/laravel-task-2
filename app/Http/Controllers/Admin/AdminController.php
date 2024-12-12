@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\Admin\Auth\LoginRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class AdminController extends Controller
 {
@@ -28,7 +29,8 @@ class AdminController extends Controller
         if (Auth::guard('admin')->attempt($credentials)) {
             return redirect()->route('administrator.dashboard');
         }else{
-            Session::flash('error-message','Invalid Email or Password');
+            Session::flash('message','Invalid Email or Password');
+            Session::flash('alert-class', 'alert-danger'); 
             return back();
         }
     }

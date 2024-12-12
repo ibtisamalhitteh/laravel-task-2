@@ -9,6 +9,7 @@ use App\Http\Requests\User\LoginRequest;
 use App\Http\Requests\User\SignupRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 
 class AuthController extends Controller
 {
@@ -18,9 +19,15 @@ class AuthController extends Controller
     }
 
     public function login (LoginRequest $request){
-        
+         $credentials = $request->only('email', 'password');
+        if (Auth::guard('web')->attempt($credentials)) {
+            return redirect()->route('home');
+        }else{
+            Session::flash('message','Invalid Email or Password');
+            Session::flash('alert-class', 'alert-danger'); 
+            return back();
+        }       
     }
-
 
     public function signupForm (){
         return view('auth.signup');
@@ -36,10 +43,9 @@ class AuthController extends Controller
     }
 
     public function logout (Request $request){
-        Auth::logout();
+        Auth::guard('web')->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-
         return redirect()->route('home');
     }
 }
