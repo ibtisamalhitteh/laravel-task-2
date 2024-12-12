@@ -8,13 +8,13 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Models\Comment;
-use App\Models\Role;
+use App\Models\Sessions;
 use Illuminate\Support\Facades\Hash;
+
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable , SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -23,8 +23,11 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'user_name',
         'email',
         'password',
+        'is_active',
+        'user_type'
     ];
 
     /**
@@ -46,21 +49,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-
-    public function comment(){
-        return $this->hasMany(Comment::class);
-    }
-
-    public function role()
+    public function subjects()
     {
-        return $this->belongsToMany(Role::class,'users_roles');
+        return $this->belongsToMany(Subject::class, 'users_subjects' , 'user_id' , 'subject_id' )->withPivot(['obtained_mark']);
     }
 
-
-    public function hasRole($role)
-    {
-        return $this->role()->where('name', $role)->exists();
-    }
 
     protected function password(): Attribute
     {
@@ -68,4 +61,5 @@ class User extends Authenticatable
             set: fn ($password) => Hash::make($password),
         );
     }
+    
 }

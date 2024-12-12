@@ -1,14 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\AuthController;
-use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\PostController;
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\StudentController;
+use App\Http\Controllers\Admin\SubjectController;
 
-
-use App\Http\Controllers\Auth\UserController;
-use App\Http\Controllers\LandingController;
-use App\Http\Controllers\CommentController;
+use App\Http\Controllers\StudentDashboardController;
+use App\Http\Controllers\User\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,49 +21,44 @@ use App\Http\Controllers\CommentController;
 
 Route::get('/', function () {
     return view('welcome');
+})->name('home');
+
+Route::get('/user/login',[AuthController::class,'loginForm'])->name('user.login.form');
+Route::post('/user/login/send',[AuthController::class,'login'])->name('user.login.form.submit');
+Route::get('/signup',[AuthController::class,'signupForm'])->name('general.signup.form');
+Route::post('/signup/send',[AuthController::class,'signup'])->name('general.signup.form.submit');
+
+
+/* administrator routes */
+Route::prefix('administrator')->name('administrator.')->group(function () {
+    Route::get('/login',[AdminController::class,'loginForm'])->name('login.form');
+    Route::post('/loginPost',[AdminController::class,'loginPost'])->name('login.form.submit');
 });
 
-/*
-Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::get('/admin/dashboard', 'DashboardController@dashboard');
-}); */
+Route::prefix('administrator')->middleware('admin')->name('administrator.')->group(function () {
 
-// Show home page "list of post"
-Route::get('/', [LandingController::class, 'index'])->name('landing.page');
-// view post details with comments
-Route::get('/post/view/{id}', [LandingController::class, 'view'])->name('post.view.page');
 
-// Show login form
-Route::get('/login', [UserController::class, 'showLoginForm'])->name('login.form');
-// Handle login
-Route::post('/loginprocess', [UserController::class, 'login'])->name('login');
-// Handle logout
-Route::post('/logout', [UserController::class, 'logout'])->name('logout');
-Route::get('/administrator', [AuthController::class, 'loginScreen'])->name('admin.login.form');
-Route::post('/loginadmin', [AuthController::class, 'login'])->name('administrator.login');
-Route::post('/logoutadmin', [AuthController::class, 'logout'])->name('administrator.logout');
-
-Route::prefix('administrator')->middleware(['auth', 'role'])->name('administrator.')->group(function () {
-    Route::controller(PostController::class)->name('posts.')->group(function () {
-        Route::get('/posts', 'index')->name('list');
-        Route::get('/posts/view/{id}', 'show')->name('show');
-        Route::get('/posts/edit/{id}', 'edit')->name('edit');
-        Route::get('/posts/delete/{id}', 'delete')->name('delete');
-        Route::post('/posts/update/{id}', 'update')->name('update');
-        Route::get('/posts/create', 'create')->name('create');
-        Route::post('/posts/store', 'store')->name('store');
-    });
-
-    Route::controller(AuthController::class)->group(function () {
+    Route::controller(AdminController::class)->group(function () {
         Route::get('/dashboard', 'index')->name('dashboard');
-        
+        Route::get('/logout','logout')->name('logout');
     });
+
+    Route::prefix('students')->controller(StudentController::class)->name('students.')->group(function () {
+        Route::get('/list', 'index')->name('list');
+    });
+
+    Route::prefix('subjects')->controller(SubjectController::class)->name('subjects.')->group(function () {
+        Route::get('/list', 'index')->name('list');
+    });
+
+
 });
 
-Route::middleware(['auth', 'role:user'])->name('user.')->group(function () {
-    Route::controller(CommentController::class)->name('comments.')->group(function () {
-        Route::get('/comment/delete/{id}', 'delete')->name('delete');
-        Route::put('/comment/update/{id}', 'update')->name('update');
-        Route::post('/comment/add/{post_id}', 'add')->name('add');
-    });
+
+//Auth::routes();
+
+Route::prefix('student')->name('student.')->group(function () {
+    Route::controller(StudentDashboardController::class)->name('studentdashboard.')->group(function () {
+        Route::get('/profile','index')->name('profile');
+    }); 
 });
